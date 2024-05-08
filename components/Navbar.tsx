@@ -17,7 +17,7 @@ const Navbar = () => {
             HELP
           </a>
         </button>
-        <button className="bg-white bg-opacity-40 px-5 py-1 rounded-md hover:bg-opacity-20 transition">
+        <button className="bg-white bg-opacity-10 px-5 py-1 rounded-md hover:bg-opacity-5 transition">
           <a className="capitalize text-white text-md" href="/">
             LOG OUT
           </a>
