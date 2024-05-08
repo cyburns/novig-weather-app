@@ -16,9 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className}flex h-screen w-screen bg-gradient-to-b from-[#285d98] via-[#5fa1e3] to-[#e1d4c6]`}
-      >
+      <body className={`${inter.className}flex h-screen w-screen `}>
         {children}
       </body>
     </html>

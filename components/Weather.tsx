@@ -1,21 +1,17 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Menu, MenuItem, LinearProgress } from "@mui/material";
 import { daysOfTheWeekArray } from "@/constants/Data";
-import {
-  ExpandMore,
-  Search,
-  Send,
-  WbSunny,
-  Air,
-  CloudQueue,
-  WaterDropOutlined,
-} from "@mui/icons-material";
-import WeatherIcon from "./WeatherIcon";
+import { ExpandMore, Search, Send } from "@mui/icons-material";
 import DayCard from "./DayCard";
+import Chart from "./Chart";
 
-const Weather = () => {
+interface WeatherProps {
+  setWeatherBackgroundColors: () => void;
+}
+
+const Weather = ({ setWeatherBackgroundColors }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedDay, setSelectedDay] = useState<string>("Friday");
@@ -43,6 +39,7 @@ const Weather = () => {
 
       console.log(data);
       setWeatherData(data);
+      setWeatherBackgroundColors(data.days[0].icon);
     } catch (error) {
       console.log(error);
     } finally {
@@ -55,7 +52,7 @@ const Weather = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col justify-center mt-20 max-w-7xl mx-auto">
+    <div className="w-full flex flex-col  max-w-7xl mx-auto mt-10">
       <div className="flex flex-row justify-between w-full">
         <div className="relative">
           <div className="flex flex-row">
@@ -89,6 +86,7 @@ const Weather = () => {
             Every {selectedDay}
           </Button>
           <Menu
+            disableScrollLock={false}
             id="demo-positioned-menu"
             aria-labelledby="demo-positioned-button"
             anchorEl={anchorEl}
@@ -119,29 +117,20 @@ const Weather = () => {
       </div>
       <div className="h-1 w-full bg-white bg-opacity-10 rounded-xl mt-5" />
 
-      <div className="mt-10">
+      <div>
         {!weatherData || isLoading ? (
           <div className="flex justify-center items-center">
             <LinearProgress />
           </div>
         ) : (
           <div>
-            {/* <div className="flex flex-row justify-between">
-              <h1 className="text-white text-2xl capitalize">
-                {weatherData.address} this {selectedDay}
-              </h1>
-              <h1 className="text-white text-2xl">Next {selectedDay}</h1>
-            </div> */}
-
             <div className="flex flex-row justify-between mt-5">
-              {/* CURRENT DAY */}
               <DayCard
                 weatherData={weatherData}
                 selectedDay={selectedDay}
                 dayIndex={0}
               />
 
-              {/* 7 DAYS AHEAD */}
               <DayCard
                 weatherData={weatherData}
                 selectedDay={selectedDay}
@@ -150,6 +139,9 @@ const Weather = () => {
             </div>
           </div>
         )}
+      </div>
+      <div className="max-w-2xl">
+        <Chart />
       </div>
     </div>
   );

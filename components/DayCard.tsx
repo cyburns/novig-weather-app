@@ -13,6 +13,14 @@ const DayCard = ({ weatherData, selectedDay, dayIndex }: any) => {
     return day + suffix[suffixIndex];
   };
 
+  const celsiusToFahrenheit = (celsius: number) => {
+    return (celsius * 9) / 5 + 32;
+  };
+
+  const kmPerHourToMilesPerHour = (kmPerHour: number) => {
+    return Math.floor(kmPerHour * 0.621371);
+  };
+
   return (
     <div className="flex flex-col">
       <h1 className="text-white text-2xl capitalize mb-5">
@@ -32,12 +40,14 @@ const DayCard = ({ weatherData, selectedDay, dayIndex }: any) => {
         <div className="ml-5">
           <h1 className="text-white text-xl mt-4">
             {weatherData.days[dayIndex].conditions}{" "}
-            {weatherData.days[dayIndex].tempmax}°C
+            {celsiusToFahrenheit(weatherData.days[dayIndex].tempmax)}°F
           </h1>
           <h1 className="text-white text-xl mt-4">
             <Air />
             <span className="ml-2">
-              Winds {weatherData.days[dayIndex].windspeed} km/h
+              Winds{" "}
+              {kmPerHourToMilesPerHour(weatherData.days[dayIndex].windspeed)}{" "}
+              mph
             </span>
           </h1>
           <h1 className="text-white text-xl mt-4">
