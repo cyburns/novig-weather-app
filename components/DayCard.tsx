@@ -14,7 +14,7 @@ const DayCard = ({ weatherData, selectedDay, dayIndex }: any) => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="text-white text-2xl capitalize mb-5">
+      <h1 className="text-white text-2xl capitalize mb-5 text-center">
         {dayIndex === 0 ? (
           <span>
             {address} this {selectedDay}

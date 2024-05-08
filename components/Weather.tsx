@@ -179,31 +179,32 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
               </div>
             ) : (
               <div className="mx-20 mt-10">
-                <div className="flex flex-row justify-between mt-5 mx-14 ">
-                  <DayCard
-                    weatherData={weatherData}
-                    selectedDay={selectedDay}
-                    dayIndex={0}
-                  />
+                <div className="flex lg:flex-row flex-col lg:justify-between justify-center mt-5 items-center">
+                  <div>
+                    <DayCard
+                      weatherData={weatherData}
+                      selectedDay={selectedDay}
+                      dayIndex={0}
+                    />
+                    <Chart
+                      weatherData={weatherData}
+                      timeOfDay={timeOfDay}
+                      dayIndex={0}
+                    />
+                  </div>
 
-                  <DayCard
-                    weatherData={weatherData}
-                    selectedDay={selectedDay}
-                    dayIndex={6}
-                  />
-                </div>
-                <div className="flex flex-row justify-between max-w-full mt-10">
-                  <Chart
-                    weatherData={weatherData}
-                    timeOfDay={timeOfDay}
-                    dayIndex={0}
-                  />
-
-                  <Chart
-                    weatherData={weatherData}
-                    timeOfDay={timeOfDay}
-                    dayIndex={6}
-                  />
+                  <div className="lg:mt-0 mt-10">
+                    <DayCard
+                      weatherData={weatherData}
+                      selectedDay={selectedDay}
+                      dayIndex={6}
+                    />
+                    <Chart
+                      weatherData={weatherData}
+                      timeOfDay={timeOfDay}
+                      dayIndex={6}
+                    />
+                  </div>
                 </div>
               </div>
             )}

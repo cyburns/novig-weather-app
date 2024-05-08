@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/Navbar";
 import Weather from "@/components/Weather";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetWeatherGradient } from "@/hooks/useGetWeatherGradient";
 
 export default function Home() {
