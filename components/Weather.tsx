@@ -2,20 +2,33 @@
 
 import React, { useEffect, useState } from "react";
 import { Button, Menu, MenuItem, LinearProgress } from "@mui/material";
-import { daysOfTheWeekArray, timePeriodsArray } from "@/constants/Data";
-import { ExpandMore, Search, Send } from "@mui/icons-material";
+import { timePeriodsArray } from "@/constants/Data";
+import {
+  ExpandMore,
+  Search,
+  Send,
+  ArrowForwardIos,
+  ArrowBackIos,
+} from "@mui/icons-material";
 import DayCard from "./DayCard";
 import Chart from "./Chart";
+import { dayAndDateOfTheWeekArray } from "@/hooks/useGetCurrentWeekArray";
 
 const Weather = ({ setWeatherBackgroundColors }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElTwo, setAnchorElTwo] = useState<null | HTMLElement>(null);
-  const [selectedDay, setSelectedDay] = useState<string>("Friday");
+  const [selectedDay, setSelectedDay] = useState<string>(
+    dayAndDateOfTheWeekArray[0].day
+  );
   const [timeOfDay, setTimeOfDay] = useState<string>("Anytime");
   const [searchInputLocation, setSearchInputLocation] =
     useState<string>("New York, New York");
   const [weatherData, setWeatherData] = useState<any>(null);
+  const [startDate, setStartDate] = useState<string>(
+    dayAndDateOfTheWeekArray[0].date
+  );
+  const [endDate, setEndDate] = useState<string>("2024-05-29");
 
   const open = Boolean(anchorEl);
   const openTwo = Boolean(anchorElTwo);
@@ -33,27 +46,33 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
 
   const API_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
     searchInputLocation
-  )}?unitGroup=metric&key=DM9V8QUU64BXCW2DH6JEAH4XD&contentType=json`;
+  )}/${startDate}/${endDate}?unitGroup=metric&key=DM9V8QUU64BXCW2DH6JEAH4XD&contentType=json`;
 
   const handleWeatherSearch = async () => {
     setIsLoading(true);
 
     try {
       const response = await fetch(API_URL);
+
       const data = await response.json();
 
       setWeatherData(data);
       setWeatherBackgroundColors(data.days[0].icon);
     } catch (error) {
-      console.log(error);
+      console.log("Error getting data", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  useEffect(() => {
-    handleWeatherSearch();
-  }, []);
+  const handleChevonClick = (motionDirection: string) => {
+    if (motionDirection === "left") {
+      setStartDate(dayAndDateOfTheWeekArray[1].date);
+    }
+    if (motionDirection === "right") {
+      setStartDate(dayAndDateOfTheWeekArray[6].date);
+    }
+  };
 
   return (
     <div className="w-full flex flex-col  max-w-7xl mx-auto mt-10 ">
@@ -106,15 +125,16 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                 horizontal: "left",
               }}
             >
-              {daysOfTheWeekArray.map((day, index) => (
+              {dayAndDateOfTheWeekArray.map((day, index) => (
                 <MenuItem
                   key={index}
                   onClick={() => {
-                    setSelectedDay(day);
+                    setSelectedDay(day.day);
+                    setStartDate(day.date);
                     handleClose();
                   }}
                 >
-                  {day}
+                  {day.day}
                 </MenuItem>
               ))}
             </Menu>
@@ -178,8 +198,14 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                 <h1>No weather data found for the location you entered.</h1>
               </div>
             ) : (
-              <div className="mx-20 mt-10">
+              <div className="mt-10">
                 <div className="flex lg:flex-row flex-col lg:justify-between justify-center mt-5 items-center">
+                  <div
+                    className="bg-white rounded-full bg-opacity-10 flex justify-center items-center hover:bg-opacity-5 transition"
+                    onClick={() => handleChevonClick("right")}
+                  >
+                    <ArrowBackIos sx={{ fontSize: 40 }} className="m-2 pl-2" />
+                  </div>
                   <div>
                     <DayCard
                       weatherData={weatherData}
@@ -204,6 +230,12 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                       timeOfDay={timeOfDay}
                       dayIndex={6}
                     />
+                  </div>
+                  <div
+                    className="bg-white rounded-full bg-opacity-10 p-2 flex justify-center items-center hover:bg-opacity-5 transition"
+                    onClick={() => handleChevonClick("left")}
+                  >
+                    <ArrowForwardIos sx={{ fontSize: 37 }} />
                   </div>
                 </div>
               </div>

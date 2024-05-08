@@ -15,6 +15,7 @@ import {
   formatTime,
   filterTimeOfDay,
 } from "@/hooks/utils";
+import { lineChartOptions } from "@/constants/Data";
 
 ChartJS.register(
   CategoryScale,
@@ -39,34 +40,6 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: any) => {
   const dayTempData = hours.map((day: any) => celsiusToFahrenheit(day.temp));
   const dayPrecipData = hours.map((day: any) => day.precip);
   const dayUvIndexData = hours.map((day: any) => day.uvindex);
-
-  const options = {
-    scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "#fff",
-        },
-      },
-      y: {
-        grid: {
-          display: false,
-        },
-        ticks: {
-          color: "#fff",
-        },
-      },
-    },
-    plugins: {
-      legend: {
-        labels: {
-          color: "#fff",
-        },
-      },
-    },
-  };
 
   const weatherDayData = {
     labels: dayTimeData,
@@ -94,7 +67,7 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: any) => {
 
   return (
     <div className="w-[30rem] bg-white mt-8 p-1 rounded-md bg-opacity-10">
-      <Line options={options} data={weatherDayData} />
+      <Line options={lineChartOptions} data={weatherDayData} />
     </div>
   );
 };
