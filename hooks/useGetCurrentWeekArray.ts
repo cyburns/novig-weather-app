@@ -1,28 +1,25 @@
+import { daysOfTheWeekArray } from "@/constants/Data";
+
 const generateDayAndDateOfTheWeekArray = () => {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
   const currentDate = new Date();
   const currentDayIndex = currentDate.getDay();
-  const currentDateString = currentDate.toISOString().split("T")[0];
   const dayAndDateOfTheWeekArray = [];
 
   for (let i = 0; i < 7; i++) {
     const dayIndex = (currentDayIndex + i) % 7;
-    const date = new Date(currentDate);
+    const startDate = new Date(currentDate);
+    const endDate = new Date(currentDate);
 
-    date.setDate(date.getDate() + i);
-    const dateString = date.toISOString().split("T")[0];
+    startDate.setDate(startDate.getDate() + i);
+    endDate.setDate(endDate.getDate() + i + 7);
+
+    const startDateString = startDate.toISOString().split("T")[0];
+    const endDateString = endDate.toISOString().split("T")[0];
 
     dayAndDateOfTheWeekArray.push({
-      day: daysOfWeek[dayIndex],
-      date: dateString,
+      day: daysOfTheWeekArray[dayIndex],
+      startDate: startDateString,
+      endDate: endDateString,
     });
   }
 

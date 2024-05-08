@@ -18,17 +18,22 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElTwo, setAnchorElTwo] = useState<null | HTMLElement>(null);
-  const [selectedDay, setSelectedDay] = useState<string>(
-    dayAndDateOfTheWeekArray[0].day
-  );
   const [timeOfDay, setTimeOfDay] = useState<string>("Anytime");
+  const [weatherData, setWeatherData] = useState<any>(null);
   const [searchInputLocation, setSearchInputLocation] =
     useState<string>("New York, New York");
-  const [weatherData, setWeatherData] = useState<any>(null);
-  const [startDate, setStartDate] = useState<string>(
-    dayAndDateOfTheWeekArray[0].date
+
+  //to filter by seleted dat
+  const [dateArrayIndex, setDateArrayIndex] = useState<number>(0);
+  const [selectedDay, setSelectedDay] = useState<string>(
+    dayAndDateOfTheWeekArray[dateArrayIndex].day
   );
-  const [endDate, setEndDate] = useState<string>("2024-05-29");
+  const [startDate, setStartDate] = useState<string>(
+    dayAndDateOfTheWeekArray[dateArrayIndex].startDate
+  );
+  const [endDate, setEndDate] = useState<string>(
+    dayAndDateOfTheWeekArray[dateArrayIndex].endDate
+  );
 
   const open = Boolean(anchorEl);
   const openTwo = Boolean(anchorElTwo);
@@ -66,13 +71,25 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
   };
 
   const handleChevonClick = (motionDirection: string) => {
+    if (motionDirection === "right" && dateArrayIndex === 6) return;
+    if (motionDirection === "left" && dateArrayIndex === 0) return;
+
     if (motionDirection === "left") {
-      setStartDate(dayAndDateOfTheWeekArray[1].date);
-    }
-    if (motionDirection === "right") {
-      setStartDate(dayAndDateOfTheWeekArray[6].date);
+      setSelectedDay(dayAndDateOfTheWeekArray[dateArrayIndex - 1].day);
+      setStartDate(dayAndDateOfTheWeekArray[dateArrayIndex - 1].startDate);
+      setEndDate(dayAndDateOfTheWeekArray[dateArrayIndex - 1].endDate);
+      setDateArrayIndex(dateArrayIndex - 1);
+    } else if (motionDirection === "right") {
+      setSelectedDay(dayAndDateOfTheWeekArray[dateArrayIndex + 1].day);
+      setStartDate(dayAndDateOfTheWeekArray[dateArrayIndex + 1].startDate);
+      setEndDate(dayAndDateOfTheWeekArray[dateArrayIndex + 1].endDate);
+      setDateArrayIndex(dateArrayIndex + 1);
     }
   };
+
+  useEffect(() => {
+    handleWeatherSearch();
+  }, [startDate, endDate]);
 
   return (
     <div className="w-full flex flex-col  max-w-7xl mx-auto mt-10 ">
@@ -130,8 +147,10 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                   key={index}
                   onClick={() => {
                     setSelectedDay(day.day);
-                    setStartDate(day.date);
+                    setStartDate(day.startDate);
+                    setEndDate(day.endDate);
                     handleClose();
+                    setDateArrayIndex(index);
                   }}
                 >
                   {day.day}
@@ -201,10 +220,17 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
               <div className="mt-10">
                 <div className="flex lg:flex-row flex-col lg:justify-between justify-center mt-5 items-center">
                   <div
-                    className="bg-white rounded-full bg-opacity-10 flex justify-center items-center hover:bg-opacity-5 transition"
-                    onClick={() => handleChevonClick("right")}
+                    className={dateArrayIndex === 0 ? "invisible" : "visible"}
                   >
-                    <ArrowBackIos sx={{ fontSize: 40 }} className="m-2 pl-2" />
+                    <div
+                      className="bg-white rounded-full bg-opacity-10 flex justify-center items-center hover:bg-opacity-5 transition"
+                      onClick={() => handleChevonClick("left")}
+                    >
+                      <ArrowBackIos
+                        sx={{ fontSize: 40 }}
+                        className="m-2 pl-2"
+                      />
+                    </div>
                   </div>
                   <div>
                     <DayCard
@@ -232,10 +258,14 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                     />
                   </div>
                   <div
-                    className="bg-white rounded-full bg-opacity-10 p-2 flex justify-center items-center hover:bg-opacity-5 transition"
-                    onClick={() => handleChevonClick("left")}
+                    className={dateArrayIndex === 6 ? "invisible" : "visible"}
                   >
-                    <ArrowForwardIos sx={{ fontSize: 37 }} />
+                    <div
+                      className="bg-white rounded-full bg-opacity-10 p-2 flex justify-center items-center hover:bg-opacity-5 transition"
+                      onClick={() => handleChevonClick("right")}
+                    >
+                      <ArrowForwardIos sx={{ fontSize: 34 }} />
+                    </div>
                   </div>
                 </div>
               </div>
