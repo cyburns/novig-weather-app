@@ -8,12 +8,4 @@ export const daysOfTheWeekArray = [
   "Saturday",
 ];
 
-export const lineChartData = {
-  labels: daysOfTheWeekArray,
-  datasets: [
-    {
-      label: "Temperature",
-      data: [12, 19, 3, 5, 2, 37, 5],
-    },
-  ],
-};
+export const timePeriodsArray = ["Morning", "Afternoon", "Evening", "Anytime"];
