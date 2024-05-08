@@ -66,7 +66,7 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: any) => {
   };
 
   return (
-    <div className="w-[30rem] bg-white mt-8 p-1 rounded-md bg-opacity-10">
+    <div className="w-[20rem] lg:w-[30rem] bg-white mt-10 p-1 rounded-md bg-opacity-10">
       <Line options={lineChartOptions} data={weatherDayData} />
     </div>
   );

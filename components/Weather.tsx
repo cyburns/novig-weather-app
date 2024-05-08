@@ -22,8 +22,6 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
   const [weatherData, setWeatherData] = useState<any>(null);
   const [searchInputLocation, setSearchInputLocation] =
     useState<string>("New York, New York");
-
-  //to filter by seleted dat
   const [dateArrayIndex, setDateArrayIndex] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<string>(
     dayAndDateOfTheWeekArray[dateArrayIndex].day
@@ -37,6 +35,11 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
 
   const open = Boolean(anchorEl);
   const openTwo = Boolean(anchorElTwo);
+  const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
+
+  const API_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
+    searchInputLocation
+  )}/${startDate}/${endDate}?unitGroup=metric&key=${API_KEY}&contentType=json`;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>, index: number) => {
     index === 0
@@ -49,16 +52,11 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
     setAnchorElTwo(null);
   };
 
-  const API_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${encodeURIComponent(
-    searchInputLocation
-  )}/${startDate}/${endDate}?unitGroup=metric&key=DM9V8QUU64BXCW2DH6JEAH4XD&contentType=json`;
-
   const handleWeatherSearch = async () => {
     setIsLoading(true);
 
     try {
       const response = await fetch(API_URL);
-
       const data = await response.json();
 
       setWeatherData(data);
@@ -92,28 +90,28 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
   }, [startDate, endDate]);
 
   return (
-    <div className="w-full flex flex-col  max-w-7xl mx-auto mt-10 ">
-      <div className="flex flex-row justify-between w-full ">
+    <div className="w-full flex flex-col max-w-7xl mx-auto mt-10">
+      <div className="flex md:flex-row flex-col justify-between w-full px-5 lg:px-0">
         <div className="relative">
-          <div className="flex flex-row">
+          <div className="flex flex-row ">
             <input
               type="text"
-              className="bg-white bg-opacity-10 text-white placeholder-white placeholder-opacity-50 rounded-md w-96 h-12 px-10 py-2 border-opacity-40 hover:bg-opacity-5 transition"
+              className="bg-white bg-opacity-10 text-white placeholder-white placeholder-opacity-50 rounded-md lg:w-96 w-[14.6rem] h-12 px-10 py-2 border-opacity-40 hover:bg-opacity-5 transition"
               placeholder="Search"
               value={searchInputLocation}
               onChange={(e) => setSearchInputLocation(e.target.value)}
             />
             <Search className="absolute top-0 left-0 mt-[0.85rem] ml-3 text-white" />
             <Button
-              className="absolute top-[0.35rem] right-2  ml-3 text-white"
+              className="ml-3 text-white bg-white bg-opacity-10"
               onClick={handleWeatherSearch}
             >
               <Send fontSize={"medium"} />
             </Button>
           </div>
         </div>
-        <div className="flex flex-row">
-          <div className="bg-white bg-opacity-10 rounded-md hover:bg-opacity-5 transition mr-5">
+        <div className="flex flex-row  mt-3 md:mt-0">
+          <div className="bg-white bg-opacity-10 rounded-md hover:bg-opacity-5 transition mr-3">
             <Button
               id="demo-positioned-button"
               aria-controls={open ? "demo-positioned-menu" : undefined}
@@ -217,8 +215,8 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                 <h1>No weather data found for the location you entered.</h1>
               </div>
             ) : (
-              <div className="mt-10">
-                <div className="flex lg:flex-row flex-col lg:justify-between justify-center mt-5 items-center">
+              <div className="mt-0 lg:mt-20">
+                <div className="flex lg:flex-row flex-col lg:justify-between justify-center items-center">
                   <div
                     className={dateArrayIndex === 0 ? "invisible" : "visible"}
                   >
