@@ -39,17 +39,21 @@ const DayCard = ({ weatherData, selectedDay, dayIndex }: DayCardProps) => {
             {conditions} {celsiusToFahrenheit(tempmax)}°F
           </h1>
           <div className="flex ">
+            <Air
+              className="text-white mt-4 mr-2"
+              sx={{ fontSize: 25, color: "#fff" }}
+            />
             <h1 className="text-white text-xs lg:text-xl mt-4">
-              <Air />
-              <span className="ml-2">
-                Winds {kmPerHourToMilesPerHour(windspeed)} mph
-              </span>
+              winds {kmPerHourToMilesPerHour(windspeed)} mph
             </h1>
           </div>
           <div className="flex flex-row">
+            <WaterDropOutlined
+              className="text-white mt-4 mr-2"
+              sx={{ fontSize: 25, color: "#fff" }}
+            />
             <h1 className="text-white text-xs lg:text-xl mt-4">
-              <WaterDropOutlined />
-              <span className="ml-2">Humidity {humidity}%</span>
+              humidity {humidity}%
             </h1>
           </div>
         </div>

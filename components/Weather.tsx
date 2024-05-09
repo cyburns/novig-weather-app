@@ -109,10 +109,6 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
     <div className="w-full flex flex-col max-w-7xl mx-auto mt-5">
       <div className="flex md:flex-row flex-col justify-between w-full px-8">
         <div className="flex flex-row ">
-          <PlaceOutlined
-            className="text-white mt-2 mr-2"
-            sx={{ fontSize: 30 }}
-          />
           <input
             type="text"
             className="bg-white bg-opacity-10 text-white placeholder-white  rounded-md lg:w-96 w-[14.6rem] h-12 px-5 py-2 border-opacity-40 hover:bg-opacity-5 transition"
@@ -129,10 +125,6 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
         </div>
 
         <div className="flex flex-row  mt-3 md:mt-0">
-          <AccessTimeOutlined
-            className="text-white mt-2 mr-2"
-            sx={{ fontSize: 30 }}
-          />
           <div className="bg-white bg-opacity-10 rounded-md hover:bg-opacity-5 transition mr-3">
             <Button
               id="demo-positioned-button"
