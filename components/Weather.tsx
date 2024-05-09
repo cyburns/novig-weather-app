@@ -99,7 +99,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
 
   return (
     <div className="w-full flex flex-col max-w-7xl mx-auto mt-10">
-      <div className="flex md:flex-row flex-col justify-between w-full px-5 lg:px-0">
+      <div className="flex md:flex-row flex-col justify-between w-full px-8">
         <div className="relative">
           <div className="flex flex-row ">
             <input
@@ -209,7 +209,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
         </div>
       </div>
 
-      <div className="h-1 w-full bg-white bg-opacity-10 rounded-xl mt-5" />
+      <div className="h-1 w-full bg-white bg-opacity-10 rounded-xl mt-5 px-5" />
 
       <div>
         {isLoading ? (

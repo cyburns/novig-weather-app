@@ -9,14 +9,14 @@ export default function Home() {
   const [weatherBackgroundColors, setWeatherBackgroundColors] =
     useState<string>("clear-day");
 
-  const gradientStyle = weatherBackgroundColors
-    ? useGetWeatherGradient(weatherBackgroundColors)
-    : "clear-day";
+  const gradientStyle = useGetWeatherGradient(weatherBackgroundColors);
 
   return (
-    <main className={`${gradientStyle} min-h-screen mb-56`}>
-      <Navbar />
-      <Weather setWeatherBackgroundColors={setWeatherBackgroundColors} />
+    <main className={gradientStyle + " min-h-screen mb-56"}>
+      <div>
+        <Navbar />
+        <Weather setWeatherBackgroundColors={setWeatherBackgroundColors} />
+      </div>
     </main>
   );
 }

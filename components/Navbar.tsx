@@ -14,13 +14,8 @@ const Navbar = () => {
       </div>
       {!smallScreenSize ? (
         <div className="mx-2">
-          <button>
-            <a
-              className="capitalize text-white text-md  hover:text-white/50 transition"
-              href="/"
-            >
-              <Menu />
-            </a>
+          <button className="capitalize text-white text-md  hover:text-white/50 transition">
+            <Menu />
           </button>
         </div>
       ) : (

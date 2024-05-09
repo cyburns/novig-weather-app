@@ -16,7 +16,7 @@ import {
   filterTimeOfDay,
 } from "@/hooks/utils";
 import { lineChartOptions } from "@/constants/Data";
-import { WeatherData, DailyWeather, HourlyWeather } from "@/constants/Types";
+import { WeatherData, HourlyWeather } from "@/constants/Types";
 
 ChartJS.register(
   CategoryScale,
@@ -74,8 +74,11 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: ChartProps) => {
   };
 
   return (
-    <div className="w-[15rem] lg:w-[30rem] bg-white mt-10 p-1 rounded-md bg-opacity-10 ">
-      <Line options={lineChartOptions} data={weatherDayData} />
+    <div>
+      <div className="w-[15rem] lg:w-[30rem] bg-white mt-10 p-1 rounded-md bg-opacity-10 ">
+        <Line options={lineChartOptions} data={weatherDayData} />
+      </div>
+      <p className="text-center mt-2">{timeOfDay}</p>
     </div>
   );
 };
