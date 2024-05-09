@@ -1,5 +1,4 @@
 export const useGetWeatherGradient = (weatherCondition: string): string => {
-  // Define a mapping of weather conditions to gradients
   const weatherGradients: { [key: string]: string } = {
     "clear-day": "bg-gradient-to-b from-[#285d98] via-[#5fa1e3] to-[#e1d4c6]",
     "clear-night": "bg-gradient-to-b from-[#04091c] via-[#21243d] to-[#384667]",

@@ -78,7 +78,7 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: ChartProps) => {
       <div className="w-[15rem] lg:w-[30rem] bg-white mt-10 p-1 rounded-md bg-opacity-10 ">
         <Line options={lineChartOptions} data={weatherDayData} />
       </div>
-      <p className="text-center mt-2">{timeOfDay}</p>
+      <p className="text-center mt-2 text-white">{timeOfDay}</p>
     </div>
   );
 };

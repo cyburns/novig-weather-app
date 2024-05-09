@@ -233,7 +233,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
                       onClick={() => handleChevonClick("left")}
                     >
                       <ArrowBackIos
-                        sx={{ fontSize: 31 }}
+                        sx={{ fontSize: 31, color: "#fff" }}
                         className="m-2 pl-2"
                       />
                     </div>
@@ -273,7 +273,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
                       className="bg-white rounded-full bg-opacity-10 p-2 flex justify-center items-center hover:bg-opacity-5 transition"
                       onClick={() => handleChevonClick("right")}
                     >
-                      <ArrowForwardIos sx={{ fontSize: 25 }} />
+                      <ArrowForwardIos sx={{ fontSize: 25, color: "#fff" }} />
                     </div>
                   </div>
                 </div>
