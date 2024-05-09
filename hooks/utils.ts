@@ -1,3 +1,5 @@
+import { HourlyWeather } from "@/constants/Types";
+
 export const formatTime = (epoch: number) => {
   const date = new Date(epoch * 1000);
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
@@ -21,8 +23,11 @@ export const kmPerHourToMilesPerHour = (kmPerHour: number) => {
   return Math.round(kmPerHour * 0.621371);
 };
 
-export const filterTimeOfDay = (hours: any, timeOfDay: any) => {
-  const filterHours = hours.filter((hour: any) => {
+export const filterTimeOfDay = (
+  hours: HourlyWeather[],
+  timeOfDay: any
+): HourlyWeather[] => {
+  const filterHours = hours.filter((hour: HourlyWeather) => {
     const hourOfDay = parseInt(hour.datetime.split(":")[0]);
 
     if (timeOfDay === "Morning") {

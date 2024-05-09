@@ -6,8 +6,15 @@ import {
   celsiusToFahrenheit,
   getOrdinal,
 } from "@/hooks/utils";
+import { WeatherData } from "@/constants/Types";
 
-const DayCard = ({ weatherData, selectedDay, dayIndex }: any) => {
+interface DayCardProps {
+  weatherData: WeatherData;
+  selectedDay: string;
+  dayIndex: number;
+}
+
+const DayCard = ({ weatherData, selectedDay, dayIndex }: DayCardProps) => {
   const { days, address } = weatherData;
   const day = days[dayIndex];
   const { datetime, icon, conditions, tempmax, windspeed, humidity } = day;
@@ -28,16 +35,16 @@ const DayCard = ({ weatherData, selectedDay, dayIndex }: any) => {
       <div className="flex flex-row justify-center items-center">
         <WeatherIcon icon={icon} />
         <div className="ml-5">
-          <h1 className="text-white text-sm lg:text-xl mt-4">
+          <h1 className="text-white text-xs lg:text-xl mt-4">
             {conditions} {celsiusToFahrenheit(tempmax)}°F
           </h1>
-          <h1 className="text-white text-sm lg:text-xl mt-4">
+          <h1 className="text-white text-xs lg:text-xl mt-4">
             <Air />
             <span className="ml-2">
               Winds {kmPerHourToMilesPerHour(windspeed)} mph
             </span>
           </h1>
-          <h1 className="text-white text-sm lg:text-xl mt-4">
+          <h1 className="text-white text-xs lg:text-xl mt-4">
             <WaterDropOutlined />
             <span className="ml-2">Humidity {humidity}%</span>
           </h1>

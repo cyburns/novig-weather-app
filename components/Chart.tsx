@@ -16,6 +16,7 @@ import {
   filterTimeOfDay,
 } from "@/hooks/utils";
 import { lineChartOptions } from "@/constants/Data";
+import { WeatherData, DailyWeather, HourlyWeather } from "@/constants/Types";
 
 ChartJS.register(
   CategoryScale,
@@ -27,19 +28,26 @@ ChartJS.register(
   Legend
 );
 
-const Chart = ({ weatherData, timeOfDay, dayIndex }: any) => {
+interface ChartProps {
+  weatherData: WeatherData;
+  timeOfDay: string;
+  dayIndex: number;
+}
+
+const Chart = ({ weatherData, timeOfDay, dayIndex }: ChartProps) => {
   const { days } = weatherData;
   const { hours } = days[dayIndex];
 
-  const filteredHourData = filterTimeOfDay(hours, timeOfDay);
+  const filteredHourData: HourlyWeather[] = filterTimeOfDay(hours, timeOfDay);
 
-  const dayTimeData = filteredHourData.map((day: any) =>
-    formatTime(day.datetimeEpoch)
+  const dayTimeData: string[] = filteredHourData.map((hour: HourlyWeather) =>
+    formatTime(hour.datetimeEpoch)
   );
-
-  const dayTempData = hours.map((day: any) => celsiusToFahrenheit(day.temp));
-  const dayPrecipData = hours.map((day: any) => day.precip);
-  const dayUvIndexData = hours.map((day: any) => day.uvindex);
+  const dayTempData = hours.map((day: HourlyWeather) =>
+    celsiusToFahrenheit(day.temp)
+  );
+  const dayPrecipData = hours.map((day: HourlyWeather) => day.precip);
+  const dayUvIndexData = hours.map((day: HourlyWeather) => day.uvindex);
 
   const weatherDayData = {
     labels: dayTimeData,

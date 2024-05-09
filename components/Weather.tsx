@@ -13,13 +13,16 @@ import {
 import DayCard from "./DayCard";
 import Chart from "./Chart";
 import { dayAndDateOfTheWeekArray } from "@/hooks/useGetCurrentWeekArray";
+import { WeatherProps } from "@/constants/Types";
+import { WeatherData } from "@/constants/Types";
 
-const Weather = ({ setWeatherBackgroundColors }: any) => {
+const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
+  const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElTwo, setAnchorElTwo] = useState<null | HTMLElement>(null);
   const [timeOfDay, setTimeOfDay] = useState<string>("Anytime");
-  const [weatherData, setWeatherData] = useState<any>(null);
+  const [weatherData, setWeatherData] = useState<null | WeatherData>(null);
   const [searchInputLocation, setSearchInputLocation] =
     useState<string>("New York, New York");
   const [dateArrayIndex, setDateArrayIndex] = useState<number>(0);
@@ -59,30 +62,35 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
       const response = await fetch(API_URL);
       const data = await response.json();
 
+      if (!data) {
+        setErrorMessage("No weather data found for the location you entered.");
+      }
+
       setWeatherData(data);
       setWeatherBackgroundColors(data.days[0].icon);
     } catch (error) {
-      console.log("Error getting data", error);
+      setErrorMessage("Error getting data. Please try again later.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChevonClick = (motionDirection: string) => {
-    if (motionDirection === "right" && dateArrayIndex === 6) return;
-    if (motionDirection === "left" && dateArrayIndex === 0) return;
+  const handleChevonClick = (motionDirection: "left" | "right") => {
+    const lastIndex = dayAndDateOfTheWeekArray.length - 1;
 
+    let newIndex = dateArrayIndex;
     if (motionDirection === "left") {
-      setSelectedDay(dayAndDateOfTheWeekArray[dateArrayIndex - 1].day);
-      setStartDate(dayAndDateOfTheWeekArray[dateArrayIndex - 1].startDate);
-      setEndDate(dayAndDateOfTheWeekArray[dateArrayIndex - 1].endDate);
-      setDateArrayIndex(dateArrayIndex - 1);
+      newIndex -= 1;
     } else if (motionDirection === "right") {
-      setSelectedDay(dayAndDateOfTheWeekArray[dateArrayIndex + 1].day);
-      setStartDate(dayAndDateOfTheWeekArray[dateArrayIndex + 1].startDate);
-      setEndDate(dayAndDateOfTheWeekArray[dateArrayIndex + 1].endDate);
-      setDateArrayIndex(dateArrayIndex + 1);
+      newIndex += 1;
     }
+
+    if (newIndex < 0 || newIndex > lastIndex) return;
+
+    setSelectedDay(dayAndDateOfTheWeekArray[newIndex].day);
+    setStartDate(dayAndDateOfTheWeekArray[newIndex].startDate);
+    setEndDate(dayAndDateOfTheWeekArray[newIndex].endDate);
+    setDateArrayIndex(newIndex);
   };
 
   useEffect(() => {
@@ -212,13 +220,13 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
           <>
             {!weatherData ? (
               <div className="flex justify-center mt-56">
-                <h1>No weather data found for the location you entered.</h1>
+                <h1>{errorMessage}</h1>
               </div>
             ) : (
               <div className="mt-0 lg:mt-20">
                 <div className="flex flex-row justify-between items-center lg:mx-0 mx-2">
                   <div
-                    className={dateArrayIndex === 1 ? "invisible" : "visible"}
+                    className={dateArrayIndex === 0 ? "invisible" : "visible"}
                   >
                     <div
                       className="bg-white rounded-full bg-opacity-10 flex justify-center items-center hover:bg-opacity-5 transition"
