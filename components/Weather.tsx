@@ -6,9 +6,10 @@ import { timePeriodsArray } from "@/constants/Data";
 import {
   ExpandMore,
   Search,
-  Send,
+  PlaceOutlined,
   ArrowForwardIos,
   ArrowBackIos,
+  AccessTimeOutlined,
 } from "@mui/icons-material";
 import DayCard from "./DayCard";
 import Chart from "./Chart";
@@ -17,10 +18,13 @@ import { WeatherProps } from "@/constants/Types";
 import { WeatherData } from "@/constants/Types";
 
 const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
+  //User feedback state
   const [errorMessage, setErrorMessage] = useState<string>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorElTwo, setAnchorElTwo] = useState<null | HTMLElement>(null);
+
+  //Filter states
   const [timeOfDay, setTimeOfDay] = useState<string>("Anytime");
   const [weatherData, setWeatherData] = useState<null | WeatherData>(null);
   const [searchInputLocation, setSearchInputLocation] =
@@ -29,6 +33,8 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
   const [selectedDay, setSelectedDay] = useState<string>(
     dayAndDateOfTheWeekArray[dateArrayIndex].day
   );
+
+  //API states
   const [startDate, setStartDate] = useState<string>(
     dayAndDateOfTheWeekArray[dateArrayIndex].startDate
   );
@@ -95,30 +101,38 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
 
   useEffect(() => {
     handleWeatherSearch();
+
+    console.log(dayAndDateOfTheWeekArray);
   }, [startDate, endDate]);
 
   return (
     <div className="w-full flex flex-col max-w-7xl mx-auto mt-5">
       <div className="flex md:flex-row flex-col justify-between w-full px-8">
-        <div className="relative">
-          <div className="flex flex-row ">
-            <input
-              type="text"
-              className="bg-white bg-opacity-10 text-white placeholder-white placeholder-opacity-50 rounded-md lg:w-96 w-[14.6rem] h-12 px-10 py-2 border-opacity-40 hover:bg-opacity-5 transition"
-              placeholder="Search"
-              value={searchInputLocation}
-              onChange={(e) => setSearchInputLocation(e.target.value)}
-            />
-            <Search className="absolute top-0 left-0 mt-[0.85rem] ml-3 text-white" />
-            <Button
-              className="ml-3 text-white bg-white bg-opacity-10 hover:bg-opacity-5"
-              onClick={handleWeatherSearch}
-            >
-              <Send fontSize={"medium"} />
-            </Button>
-          </div>
+        <div className="flex flex-row ">
+          <PlaceOutlined
+            className="text-white mt-2 mr-2"
+            sx={{ fontSize: 30 }}
+          />
+          <input
+            type="text"
+            className="bg-white bg-opacity-10 text-white placeholder-white  rounded-md lg:w-96 w-[14.6rem] h-12 px-5 py-2 border-opacity-40 hover:bg-opacity-5 transition"
+            placeholder="Search..."
+            value={searchInputLocation}
+            onChange={(e) => setSearchInputLocation(e.target.value)}
+          />
+          <Button
+            className="ml-3 text-white bg-white bg-opacity-10 hover:bg-opacity-5"
+            onClick={handleWeatherSearch}
+          >
+            <Search className=" text-white" sx={{ fontSize: 30 }} />
+          </Button>
         </div>
+
         <div className="flex flex-row  mt-3 md:mt-0">
+          <AccessTimeOutlined
+            className="text-white mt-2 mr-2"
+            sx={{ fontSize: 30 }}
+          />
           <div className="bg-white bg-opacity-10 rounded-md hover:bg-opacity-5 transition mr-3">
             <Button
               id="demo-positioned-button"
@@ -155,8 +169,8 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
                     setSelectedDay(day.day);
                     setStartDate(day.startDate);
                     setEndDate(day.endDate);
-                    handleClose();
                     setDateArrayIndex(index);
+                    handleClose();
                   }}
                 >
                   {day.day}
