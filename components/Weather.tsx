@@ -103,7 +103,7 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
             />
             <Search className="absolute top-0 left-0 mt-[0.85rem] ml-3 text-white" />
             <Button
-              className="ml-3 text-white bg-white bg-opacity-10"
+              className="ml-3 text-white bg-white bg-opacity-10 hover:bg-opacity-5"
               onClick={handleWeatherSearch}
             >
               <Send fontSize={"medium"} />
@@ -216,44 +216,47 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
               </div>
             ) : (
               <div className="mt-0 lg:mt-20">
-                <div className="flex lg:flex-row flex-col lg:justify-between justify-center items-center">
+                <div className="flex flex-row justify-between items-center lg:mx-0 mx-2">
                   <div
-                    className={dateArrayIndex === 0 ? "invisible" : "visible"}
+                    className={dateArrayIndex === 1 ? "invisible" : "visible"}
                   >
                     <div
                       className="bg-white rounded-full bg-opacity-10 flex justify-center items-center hover:bg-opacity-5 transition"
                       onClick={() => handleChevonClick("left")}
                     >
                       <ArrowBackIos
-                        sx={{ fontSize: 40 }}
+                        sx={{ fontSize: 31 }}
                         className="m-2 pl-2"
                       />
                     </div>
                   </div>
-                  <div>
-                    <DayCard
-                      weatherData={weatherData}
-                      selectedDay={selectedDay}
-                      dayIndex={0}
-                    />
-                    <Chart
-                      weatherData={weatherData}
-                      timeOfDay={timeOfDay}
-                      dayIndex={0}
-                    />
-                  </div>
 
-                  <div className="lg:mt-0 mt-10">
-                    <DayCard
-                      weatherData={weatherData}
-                      selectedDay={selectedDay}
-                      dayIndex={6}
-                    />
-                    <Chart
-                      weatherData={weatherData}
-                      timeOfDay={timeOfDay}
-                      dayIndex={6}
-                    />
+                  <div className="flex lg:flex-row flex-col justify-between">
+                    <div className="lg:mt-0 mt-10 mr-0 lg:mr-5 flex justify-center items-center flex-col">
+                      <DayCard
+                        weatherData={weatherData}
+                        selectedDay={selectedDay}
+                        dayIndex={0}
+                      />
+                      <Chart
+                        weatherData={weatherData}
+                        timeOfDay={timeOfDay}
+                        dayIndex={0}
+                      />
+                    </div>
+
+                    <div className="lg:mt-0 mt-10 ml-0 lg:ml-5 flex justify-center items-center flex-col lg:mb-0 mb-20">
+                      <DayCard
+                        weatherData={weatherData}
+                        selectedDay={selectedDay}
+                        dayIndex={6}
+                      />
+                      <Chart
+                        weatherData={weatherData}
+                        timeOfDay={timeOfDay}
+                        dayIndex={6}
+                      />
+                    </div>
                   </div>
                   <div
                     className={dateArrayIndex === 6 ? "invisible" : "visible"}
@@ -262,7 +265,7 @@ const Weather = ({ setWeatherBackgroundColors }: any) => {
                       className="bg-white rounded-full bg-opacity-10 p-2 flex justify-center items-center hover:bg-opacity-5 transition"
                       onClick={() => handleChevonClick("right")}
                     >
-                      <ArrowForwardIos sx={{ fontSize: 34 }} />
+                      <ArrowForwardIos sx={{ fontSize: 25 }} />
                     </div>
                   </div>
                 </div>

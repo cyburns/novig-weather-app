@@ -14,7 +14,7 @@ export default function Home() {
     : "clear-day";
 
   return (
-    <main className={gradientStyle + " h-screen"}>
+    <main className={`${gradientStyle} min-h-screen mb-56`}>
       <Navbar />
       <Weather setWeatherBackgroundColors={setWeatherBackgroundColors} />
     </main>
