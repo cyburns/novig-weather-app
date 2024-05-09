@@ -101,8 +101,6 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
 
   useEffect(() => {
     handleWeatherSearch();
-
-    console.log(dayAndDateOfTheWeekArray);
   }, [startDate, endDate]);
 
   return (
