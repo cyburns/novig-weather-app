@@ -98,6 +98,8 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: ChartProps) => {
       legend: {
         labels: {
           color: "#fff",
+          boxWidth: 20,
+          borderRadius: 100,
         },
       },
     },
