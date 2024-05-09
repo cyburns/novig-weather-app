@@ -9,31 +9,3 @@ export const daysOfTheWeekArray = [
 ];
 
 export const timePeriodsArray = ["Morning", "Afternoon", "Evening", "Anytime"];
-
-export const lineChartOptions = {
-  scales: {
-    x: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        color: "#fff",
-      },
-    },
-    y: {
-      grid: {
-        display: false,
-      },
-      ticks: {
-        color: "#fff",
-      },
-    },
-  },
-  plugins: {
-    legend: {
-      labels: {
-        color: "#fff",
-      },
-    },
-  },
-};

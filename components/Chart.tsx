@@ -1,5 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,7 +16,6 @@ import {
   formatTime,
   filterTimeOfDay,
 } from "@/hooks/utils";
-import { lineChartOptions } from "@/constants/Data";
 import { WeatherData, HourlyWeather } from "@/constants/Types";
 
 ChartJS.register(
@@ -35,6 +35,8 @@ interface ChartProps {
 }
 
 const Chart = ({ weatherData, timeOfDay, dayIndex }: ChartProps) => {
+  const smallScreenSize = useMediaQuery("(min-width:567px)");
+
   const { days } = weatherData;
   const { hours } = days[dayIndex];
 
@@ -71,6 +73,35 @@ const Chart = ({ weatherData, timeOfDay, dayIndex }: ChartProps) => {
         color: "#fff",
       },
     ],
+  };
+
+  const lineChartOptions = {
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: "#fff",
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: "#fff",
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: "#fff",
+        },
+      },
+    },
+    aspectRatio: smallScreenSize ? 2 : 1,
   };
 
   return (

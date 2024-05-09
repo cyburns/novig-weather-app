@@ -98,7 +98,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
   }, [startDate, endDate]);
 
   return (
-    <div className="w-full flex flex-col max-w-7xl mx-auto mt-10">
+    <div className="w-full flex flex-col max-w-7xl mx-auto mt-5">
       <div className="flex md:flex-row flex-col justify-between w-full px-8">
         <div className="relative">
           <div className="flex flex-row ">
@@ -223,7 +223,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
                 <h1>{errorMessage}</h1>
               </div>
             ) : (
-              <div className="mt-0 lg:mt-20">
+              <div className="mt-0 lg:mt-10">
                 <div className="flex flex-row justify-between items-center lg:mx-0 mx-2">
                   <div
                     className={dateArrayIndex === 0 ? "invisible" : "visible"}
