@@ -6,10 +6,8 @@ import { timePeriodsArray } from "@/constants/Data";
 import {
   ExpandMore,
   Search,
-  PlaceOutlined,
   ArrowForwardIos,
   ArrowBackIos,
-  AccessTimeOutlined,
 } from "@mui/icons-material";
 import DayCard from "./DayCard";
 import Chart from "./Chart";
@@ -81,7 +79,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
     }
   };
 
-  const handleChevonClick = (motionDirection: "left" | "right") => {
+  const handleChevronClick = (motionDirection: "left" | "right") => {
     const lastIndex = dayAndDateOfTheWeekArray.length - 1;
 
     let newIndex = dateArrayIndex;
@@ -101,8 +99,6 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
 
   useEffect(() => {
     handleWeatherSearch();
-
-    console.log(dayAndDateOfTheWeekArray);
   }, [startDate, endDate]);
 
   return (
@@ -236,7 +232,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
                   >
                     <div
                       className="bg-white rounded-full bg-opacity-10 flex justify-center items-center hover:bg-opacity-5 transition"
-                      onClick={() => handleChevonClick("left")}
+                      onClick={() => handleChevronClick("left")}
                     >
                       <ArrowBackIos
                         sx={{ fontSize: 31, color: "#fff" }}
@@ -277,7 +273,7 @@ const Weather = ({ setWeatherBackgroundColors }: WeatherProps) => {
                   >
                     <div
                       className="bg-white rounded-full bg-opacity-10 p-2 flex justify-center items-center hover:bg-opacity-5 transition"
-                      onClick={() => handleChevonClick("right")}
+                      onClick={() => handleChevronClick("right")}
                     >
                       <ArrowForwardIos sx={{ fontSize: 25, color: "#fff" }} />
                     </div>
